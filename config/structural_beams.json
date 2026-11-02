@@ -1,0 +1,1375 @@
+{
+    "site_id": "c6a34daea15ee6e4c242cde6e4e748d1b9103808e66744435910c630348c0349",
+    "reference_ground_plane": [
+        0,
+        0,
+        -24.74
+    ],
+    "description": "104 perimeter beams: S5 has two upper levels and a 4.5m ground-based box; all other groups have three levels",
+    "beams": [
+        {
+            "name": "S1-L1-B1",
+            "group": "S1",
+            "level": 1,
+            "side": 1,
+            "semantic_ids": [
+                96
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S1-L1-B2",
+            "group": "S1",
+            "level": 1,
+            "side": 2,
+            "semantic_ids": [
+                97
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S1-L1-B3",
+            "group": "S1",
+            "level": 1,
+            "side": 3,
+            "semantic_ids": [
+                98
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S1-L1-B4",
+            "group": "S1",
+            "level": 1,
+            "side": 4,
+            "semantic_ids": [
+                99
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S1-L2-B1",
+            "group": "S1",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                100
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S1-L2-B2",
+            "group": "S1",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                101
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S1-L2-B3",
+            "group": "S1",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                102
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S1-L2-B4",
+            "group": "S1",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                103
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S1-L3-B1",
+            "group": "S1",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                104
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S1-L3-B2",
+            "group": "S1",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                105
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S1-L3-B3",
+            "group": "S1",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                106
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S1-L3-B4",
+            "group": "S1",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                107
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S2-L1-B1",
+            "group": "S2",
+            "level": 1,
+            "side": 1,
+            "semantic_ids": [
+                108
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S2-L1-B2",
+            "group": "S2",
+            "level": 1,
+            "side": 2,
+            "semantic_ids": [
+                109
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S2-L1-B3",
+            "group": "S2",
+            "level": 1,
+            "side": 3,
+            "semantic_ids": [
+                110
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S2-L1-B4",
+            "group": "S2",
+            "level": 1,
+            "side": 4,
+            "semantic_ids": [
+                111
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S2-L2-B1",
+            "group": "S2",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                112
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S2-L2-B2",
+            "group": "S2",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                113
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S2-L2-B3",
+            "group": "S2",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                114
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S2-L2-B4",
+            "group": "S2",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                115
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S2-L3-B1",
+            "group": "S2",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                116
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S2-L3-B2",
+            "group": "S2",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                117
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S2-L3-B3",
+            "group": "S2",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                118
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S2-L3-B4",
+            "group": "S2",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                119
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S3-L1-B1",
+            "group": "S3",
+            "level": 1,
+            "side": 1,
+            "semantic_ids": [
+                120
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S3-L1-B2",
+            "group": "S3",
+            "level": 1,
+            "side": 2,
+            "semantic_ids": [
+                121
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S3-L1-B3",
+            "group": "S3",
+            "level": 1,
+            "side": 3,
+            "semantic_ids": [
+                122
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S3-L1-B4",
+            "group": "S3",
+            "level": 1,
+            "side": 4,
+            "semantic_ids": [
+                123
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S3-L2-B1",
+            "group": "S3",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                124
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S3-L2-B2",
+            "group": "S3",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                125
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S3-L2-B3",
+            "group": "S3",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                126
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S3-L2-B4",
+            "group": "S3",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                127
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S3-L3-B1",
+            "group": "S3",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                128
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S3-L3-B2",
+            "group": "S3",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                129
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S3-L3-B3",
+            "group": "S3",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                130
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S3-L3-B4",
+            "group": "S3",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                131
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S4-L1-B1",
+            "group": "S4",
+            "level": 1,
+            "side": 1,
+            "semantic_ids": [
+                132
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S4-L1-B2",
+            "group": "S4",
+            "level": 1,
+            "side": 2,
+            "semantic_ids": [
+                133
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S4-L1-B3",
+            "group": "S4",
+            "level": 1,
+            "side": 3,
+            "semantic_ids": [
+                134
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S4-L1-B4",
+            "group": "S4",
+            "level": 1,
+            "side": 4,
+            "semantic_ids": [
+                135
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S4-L2-B1",
+            "group": "S4",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                136
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S4-L2-B2",
+            "group": "S4",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                137
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S4-L2-B3",
+            "group": "S4",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                138
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S4-L2-B4",
+            "group": "S4",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                139
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S4-L3-B1",
+            "group": "S4",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                140
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S4-L3-B2",
+            "group": "S4",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                141
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S4-L3-B3",
+            "group": "S4",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                142
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S4-L3-B4",
+            "group": "S4",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                143
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S5-L2-B1",
+            "group": "S5",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                146
+            ],
+            "covered_by_box": null,
+            "bottom_m": 9.55,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S5-L2-B2",
+            "group": "S5",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                147
+            ],
+            "covered_by_box": null,
+            "bottom_m": 9.55,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S5-L2-B3",
+            "group": "S5",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                148
+            ],
+            "covered_by_box": null,
+            "bottom_m": 9.55,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S5-L2-B4",
+            "group": "S5",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                149
+            ],
+            "covered_by_box": null,
+            "bottom_m": 9.55,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S5-L3-B1",
+            "group": "S5",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                150
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S5-L3-B2",
+            "group": "S5",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                151
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S5-L3-B3",
+            "group": "S5",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                152
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S5-L3-B4",
+            "group": "S5",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                153
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S6-L1-B1",
+            "group": "S6",
+            "level": 1,
+            "side": 1,
+            "semantic_ids": [
+                154
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S6-L1-B2",
+            "group": "S6",
+            "level": 1,
+            "side": 2,
+            "semantic_ids": [
+                155
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S6-L1-B3",
+            "group": "S6",
+            "level": 1,
+            "side": 3,
+            "semantic_ids": [
+                156
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S6-L1-B4",
+            "group": "S6",
+            "level": 1,
+            "side": 4,
+            "semantic_ids": [
+                157
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S6-L2-B1",
+            "group": "S6",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                158
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S6-L2-B2",
+            "group": "S6",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                159
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S6-L2-B3",
+            "group": "S6",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                160
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S6-L2-B4",
+            "group": "S6",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                161
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S6-L3-B1",
+            "group": "S6",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                162
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S6-L3-B2",
+            "group": "S6",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                163
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S6-L3-B3",
+            "group": "S6",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                164
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S6-L3-B4",
+            "group": "S6",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                165
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S7-L1-B1",
+            "group": "S7",
+            "level": 1,
+            "side": 1,
+            "semantic_ids": [
+                166
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S7-L1-B2",
+            "group": "S7",
+            "level": 1,
+            "side": 2,
+            "semantic_ids": [
+                167
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S7-L1-B3",
+            "group": "S7",
+            "level": 1,
+            "side": 3,
+            "semantic_ids": [
+                168
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S7-L1-B4",
+            "group": "S7",
+            "level": 1,
+            "side": 4,
+            "semantic_ids": [
+                169
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S7-L2-B1",
+            "group": "S7",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                170
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S7-L2-B2",
+            "group": "S7",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                171
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S7-L2-B3",
+            "group": "S7",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                172
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S7-L2-B4",
+            "group": "S7",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                173
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S7-L3-B1",
+            "group": "S7",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                174
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S7-L3-B2",
+            "group": "S7",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                175
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S7-L3-B3",
+            "group": "S7",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                176
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S7-L3-B4",
+            "group": "S7",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                177
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S8-L1-B1",
+            "group": "S8",
+            "level": 1,
+            "side": 1,
+            "semantic_ids": [
+                178
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S8-L1-B2",
+            "group": "S8",
+            "level": 1,
+            "side": 2,
+            "semantic_ids": [
+                179
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S8-L1-B3",
+            "group": "S8",
+            "level": 1,
+            "side": 3,
+            "semantic_ids": [
+                180
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S8-L1-B4",
+            "group": "S8",
+            "level": 1,
+            "side": 4,
+            "semantic_ids": [
+                181
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.6,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S8-L2-B1",
+            "group": "S8",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                182
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S8-L2-B2",
+            "group": "S8",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                183
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S8-L2-B3",
+            "group": "S8",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                184
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S8-L2-B4",
+            "group": "S8",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                185
+            ],
+            "covered_by_box": null,
+            "bottom_m": 8.1,
+            "section_width_m": 0.8,
+            "section_height_m": 0.9
+        },
+        {
+            "name": "S8-L3-B1",
+            "group": "S8",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                186
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S8-L3-B2",
+            "group": "S8",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                187
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S8-L3-B3",
+            "group": "S8",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                188
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S8-L3-B4",
+            "group": "S8",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                189
+            ],
+            "covered_by_box": null,
+            "bottom_m": 13.2,
+            "section_width_m": 0.8,
+            "section_height_m": 0.8
+        },
+        {
+            "name": "S9-L1-B1",
+            "group": "S9",
+            "level": 1,
+            "side": 1,
+            "semantic_ids": [
+                202
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.3,
+            "top_m": 3.8,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L1-B2",
+            "group": "S9",
+            "level": 1,
+            "side": 2,
+            "semantic_ids": [
+                203
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.3,
+            "top_m": 3.8,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L1-B3",
+            "group": "S9",
+            "level": 1,
+            "side": 3,
+            "semantic_ids": [
+                204
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.3,
+            "top_m": 3.8,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L1-B4",
+            "group": "S9",
+            "level": 1,
+            "side": 4,
+            "semantic_ids": [
+                205
+            ],
+            "covered_by_box": null,
+            "bottom_m": 3.3,
+            "top_m": 3.8,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L2-B1",
+            "group": "S9",
+            "level": 2,
+            "side": 1,
+            "semantic_ids": [
+                194
+            ],
+            "covered_by_box": null,
+            "bottom_m": 7.0,
+            "top_m": 7.5,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L2-B2",
+            "group": "S9",
+            "level": 2,
+            "side": 2,
+            "semantic_ids": [
+                195
+            ],
+            "covered_by_box": null,
+            "bottom_m": 7.0,
+            "top_m": 7.5,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L2-B3",
+            "group": "S9",
+            "level": 2,
+            "side": 3,
+            "semantic_ids": [
+                196
+            ],
+            "covered_by_box": null,
+            "bottom_m": 7.0,
+            "top_m": 7.5,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L2-B4",
+            "group": "S9",
+            "level": 2,
+            "side": 4,
+            "semantic_ids": [
+                197
+            ],
+            "covered_by_box": null,
+            "bottom_m": 7.0,
+            "top_m": 7.5,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L3-B1",
+            "group": "S9",
+            "level": 3,
+            "side": 1,
+            "semantic_ids": [
+                198
+            ],
+            "covered_by_box": null,
+            "bottom_m": 11.0,
+            "top_m": 11.5,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L3-B2",
+            "group": "S9",
+            "level": 3,
+            "side": 2,
+            "semantic_ids": [
+                199
+            ],
+            "covered_by_box": null,
+            "bottom_m": 11.0,
+            "top_m": 11.5,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L3-B3",
+            "group": "S9",
+            "level": 3,
+            "side": 3,
+            "semantic_ids": [
+                200
+            ],
+            "covered_by_box": null,
+            "bottom_m": 11.0,
+            "top_m": 11.5,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        },
+        {
+            "name": "S9-L3-B4",
+            "group": "S9",
+            "level": 3,
+            "side": 4,
+            "semantic_ids": [
+                201
+            ],
+            "covered_by_box": null,
+            "bottom_m": 11.0,
+            "top_m": 11.5,
+            "section_width_m": 0.7,
+            "section_height_m": 0.5
+        }
+    ]
+}

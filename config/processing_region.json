@@ -1,0 +1,7 @@
+{
+    "version": 1,
+    "site_id": "c6a34daea15ee6e4c242cde6e4e748d1b9103808e66744435910c630348c0349",
+    "frame": "Fixed building coordinates; independent of calibration planes",
+    "source": "Approximate perimeter traced from persistent wall returns in all three scans; meters; editable processing boundary, not a surveyed plan",
+    "footprint_xy_m": [[0,0],[19.9,0],[19.9,-13],[54.02,-13],[54.02,263.0],[31.45,263.0],[31.45,251],[19.9,251],[19.9,240],[0,240]]
+}

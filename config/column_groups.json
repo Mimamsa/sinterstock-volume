@@ -1,0 +1,346 @@
+{
+    "site_id": "c6a34daea15ee6e4c242cde6e4e748d1b9103808e66744435910c630348c0349",
+    "groups": [
+        {
+            "name": "S1",
+            "member_ids": [
+                42,
+                40,
+                39,
+                41
+            ],
+            "missing_direction": "",
+            "anchor_ids": [
+                42,
+                40,
+                39
+            ],
+            "north_south_m": 6.4,
+            "east_west_m": 5.2,
+            "section_m": 0.8,
+            "column_height_m": 14,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 3.6,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 8.1,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 13.2,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.8
+                }
+            ]
+        },
+        {
+            "name": "S2",
+            "member_ids": [
+                46,
+                44,
+                45,
+                43
+            ],
+            "missing_direction": "+Y",
+            "anchor_ids": [
+                46,
+                44
+            ],
+            "north_south_m": 6.4,
+            "east_west_m": 5,
+            "section_m": 0.8,
+            "column_height_m": 14,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 3.6,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 8.1,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 13.2,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.8
+                }
+            ]
+        },
+        {
+            "name": "S3",
+            "member_ids": [
+                50,
+                49,
+                47,
+                48
+            ],
+            "missing_direction": "",
+            "anchor_ids": [
+                50,
+                49,
+                47,
+                48
+            ],
+            "north_south_m": 6.4,
+            "east_west_m": 5,
+            "section_m": 0.8,
+            "column_height_m": 14,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 3.6,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 8.1,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 13.2,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.8
+                }
+            ]
+        },
+        {
+            "name": "S4",
+            "member_ids": [
+                54,
+                53,
+                52,
+                51
+            ],
+            "missing_direction": "",
+            "anchor_ids": [
+                54,
+                53,
+                52,
+                51
+            ],
+            "north_south_m": 6.4,
+            "east_west_m": 5,
+            "section_m": 0.8,
+            "column_height_m": 14,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 3.6,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 8.1,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 13.2,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.8
+                }
+            ]
+        },
+        {
+            "name": "S5",
+            "member_ids": [
+                58,
+                57,
+                56,
+                55
+            ],
+            "missing_direction": "",
+            "anchor_ids": [
+                58,
+                57,
+                56,
+                55
+            ],
+            "north_south_m": 6.4,
+            "east_west_m": 8,
+            "section_m": 0.8,
+            "column_height_m": 14,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 9.55,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9,
+                    "level": 2
+                },
+                {
+                    "bottom_m": 13.2,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.8,
+                    "level": 3
+                }
+            ],
+            "lowest_level_type": "box",
+            "box_id": 95,
+            "box_height_m": 4.5
+        },
+        {
+            "name": "S6",
+            "member_ids": [
+                62,
+                61,
+                60,
+                59
+            ],
+            "missing_direction": "",
+            "anchor_ids": [
+                62,
+                61,
+                60,
+                59
+            ],
+            "north_south_m": 6.4,
+            "east_west_m": 5,
+            "section_m": 0.8,
+            "column_height_m": 14,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 3.6,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 8.1,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 13.2,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.8
+                }
+            ]
+        },
+        {
+            "name": "S7",
+            "member_ids": [
+                66,
+                65,
+                64,
+                63
+            ],
+            "missing_direction": "+X",
+            "anchor_ids": [
+                66,
+                65
+            ],
+            "north_south_m": 6.4,
+            "east_west_m": 5,
+            "section_m": 0.8,
+            "column_height_m": 14,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 3.6,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 8.1,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 13.2,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.8
+                }
+            ]
+        },
+        {
+            "name": "S8",
+            "member_ids": [
+                69,
+                68,
+                67,
+                70
+            ],
+            "missing_direction": "",
+            "anchor_ids": [
+                69,
+                68,
+                67
+            ],
+            "north_south_m": 6.4,
+            "east_west_m": 7,
+            "section_m": 0.8,
+            "column_height_m": 14,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 3.6,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 8.1,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.9
+                },
+                {
+                    "bottom_m": 13.2,
+                    "section_width_m": 0.8,
+                    "section_height_m": 0.8
+                }
+            ]
+        },
+        {
+            "name": "S9",
+            "member_ids": [
+                190,
+                191,
+                192,
+                193
+            ],
+            "anchor_ids": [
+                190,
+                191,
+                192,
+                193
+            ],
+            "missing_direction": "",
+            "north_south_m": 3.009999999999998,
+            "east_west_m": 3.5,
+            "section_m": 0.7,
+            "column_height_m": 11.5,
+            "beam_layout": "four_sides_between_corner_columns",
+            "beam_levels": [
+                {
+                    "bottom_m": 3.3,
+                    "top_m": 3.8,
+                    "section_width_m": 0.7,
+                    "section_height_m": 0.5
+                },
+                {
+                    "bottom_m": 7.0,
+                    "top_m": 7.5,
+                    "section_width_m": 0.7,
+                    "section_height_m": 0.5
+                },
+                {
+                    "bottom_m": 11.0,
+                    "top_m": 11.5,
+                    "section_width_m": 0.7,
+                    "section_height_m": 0.5
+                }
+            ],
+            "measurement_status": "raw_XY_face_fit;user_confirmed_column_height_and_three_beam_dimensions"
+        }
+    ],
+    "finalized": true
+}

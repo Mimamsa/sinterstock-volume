@@ -1,0 +1,9 @@
+# CMake build output
+build/
+
+# Point clouds and exported meshes
+*.[pP][lL][yY]
+
+# Per-scan calibration cache
+calibration.json
+calibration.json.lock
