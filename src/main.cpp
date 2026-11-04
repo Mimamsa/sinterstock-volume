@@ -69,7 +69,7 @@ class Viewer : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     /// 兩側實際上傳的點數。 / Actual uploaded point counts for both panes.
     int counts[4]{0, 0, 0, 0};
     int paneModes[2]{0,1};
-    bool paneColumns[2]{false,false},paneGround[2]{false,true},showAxes=true;
+    bool paneColumns[2]{false,false},paneGround[2]{true,true},showAxes=true;
     static bool visibleLayer(int mode,int layer) {return (mode==0&&layer==0)||(mode==1&&(layer==1||layer==2))||(mode==2&&layer==1)||(mode==3&&layer==2)||(mode==4&&layer==3);}
 
     bool highlightFill = true, selectingROI = false, draggingROI = false;
@@ -663,7 +663,7 @@ int main(int argc, char **argv) {
     for(int pane=0;pane<2;++pane) {
         displayRow->addWidget(new QLabel(pane?"右側顯示":"左側顯示"));paneMode[pane]=new QComboBox;
         paneMode[pane]->addItems({"原始點雲","處理後料面（實測＋補點）","清理後實測","補點","柱體量測證據","不顯示點雲"});paneMode[pane]->setCurrentIndex(pane?1:0);
-        paneColumns[pane]=new QCheckBox("柱體框");paneGround[pane]=new QCheckBox("地面與料堆邊界");paneGround[pane]->setChecked(pane==1);
+        paneColumns[pane]=new QCheckBox("柱體框");paneGround[pane]=new QCheckBox("地面與料堆邊界");paneGround[pane]->setChecked(true);
         displayRow->addWidget(paneMode[pane]);displayRow->addWidget(paneColumns[pane]);displayRow->addWidget(paneGround[pane]);if(!pane) displayRow->addSpacing(20);
     }
     auto *hideRoof=new QCheckBox("左側隱藏屋頂與構架");hideRoof->setEnabled(false);
