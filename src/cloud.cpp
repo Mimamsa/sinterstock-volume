@@ -606,6 +606,7 @@ Cloud processCloud(const QString &path, size_t displayLimit, const DenoiseOption
                 const auto n=points.size(),m=generated.size();
                 points.insert(points.end(),surfaceRejectedMeasured.begin(),surfaceRejectedMeasured.end());generated.insert(generated.end(),surfaceRejectedEstimated.begin(),surfaceRejectedEstimated.end());
                 auto comparison=effectiveVolume;comparison.automaticGround=false;comparison.ground=result.volume.ground;
+                comparison.groundConstant.reset();
                 const auto before=calculateStockpileVolumes(points,generated,effectiveFill.footprint,effectiveFill.footprintMargin,comparison);
                 points.resize(n);generated.resize(m);
                 if(before.error.isEmpty()) {result.surfaceFilter.volumeBefore=before.totalVolume;result.surfaceFilter.comparisonValid=true;}

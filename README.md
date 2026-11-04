@@ -22,8 +22,10 @@ ctest --test-dir build --output-on-failure
 讀取指定目錄的 PLY，不搜尋子目錄；每份獨立處理，不融合可能變動的料堆。座標與長度為公尺。
 
 ```bash
-# 水平手動地面：共同建築座標 Z = -24 m
+# 水平手動地面：共同建築座標 Z = -24.31 m
 ./build/pointcloud_compare /path/to/scans --ground-plane 0,0,-24.31
+# 保留自動擬合的 a、b，只指定絕對常數 c（不可與 --ground-plane 併用）
+./build/pointcloud_compare /path/to/scans --ground-constant -24.31
 # 無桌面：逐檔處理並輸出報告
 ./build/pointcloud_compare /path/to/scans --check
 # 無桌面查看完整參數
@@ -51,7 +53,7 @@ ctest --test-dir build --output-on-failure
 
 ## 體積原則
 
-清理、結構排除、補洞及末段離群清理後，僅由實測估地面，或採用 `--ground-plane a,b,c` 的 `Z=aX+bY+c`。全流程見[處理流程](docs/processing_pipeline.md)。
+清理、結構排除、補洞及末段離群清理後，僅由實測擬合 `Z=aX+bY+c`。可透過 `--ground-constant c` 或 GUI「調整地面常數 c」保留擬合 a、b，只修改絕對常數 c（公尺）；GUI 需按「套用地面並重新計算」才生效，取消勾選後套用可恢復原擬合。完整手動平面仍可用 `--ground-plane a,b,c`，兩種指定方式不可併用。全流程見[處理流程](docs/processing_pipeline.md#8-估計地平面或採用手動地面)。
 
 - 柵格固定 10 cm，每格使用最低離地高度，實測優先、無實測才用補點，未知格不計。
 - 只在倒凸有效場域內積分，保留兩端延伸料地與預設 0.4 m 牆邊內縮。

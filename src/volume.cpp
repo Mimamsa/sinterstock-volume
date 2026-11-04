@@ -99,7 +99,14 @@ VolumeReport calculateStockpileVolumes(const std::vector<Point> &measured,const 
         /** @brief 步驟 1：僅從清理後量測估計地面；手動模式則使用指定平面。
          *         Step 1: estimate ground using cleaned measurements only, or use the specified manual plane.
          */
-        if(o.automaticGround) estimateGround(measured,footprint,margin,o,r);
+        if(o.groundConstant && (!o.automaticGround || !std::isfinite(*o.groundConstant)))
+            throw std::runtime_error("Ground constant requires automatic fitting and a finite value");
+        // 完成擬合與支撐驗證後才覆寫 c，a、b 與擬合品質統計保持原值。
+        // Override c only after fit/support validation; preserve a,b and original fit statistics.
+        if(o.automaticGround) {
+            estimateGround(measured,footprint,margin,o,r);r.fittedGround=r.ground;
+            if(o.groundConstant) {r.ground[2]=*o.groundConstant;r.adjustedGroundConstant=true;}
+        }
         else {for(double a:o.ground) if(!std::isfinite(a)) throw std::runtime_error("Nonfinite ground plane");r.ground=o.ground;r.manualGround=true;}
         r.groundValid=true;
         double x0=1e30,y0=1e30,x1=-1e30,y1=-1e30;
