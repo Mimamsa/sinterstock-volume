@@ -25,6 +25,8 @@
 #include <QPushButton>
 #include <QSurfaceFormat>
 #include <QSignalBlocker>
+#include <QSaveFile>
+#include <QImage>
 #include <QTimer>
 #include <QVBoxLayout>
 #include <QWheelEvent>
@@ -69,7 +71,7 @@ class Viewer : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
     /// 兩側實際上傳的點數。 / Actual uploaded point counts for both panes.
     int counts[4]{0, 0, 0, 0};
     int paneModes[2]{0,1};
-    bool paneColumns[2]{false,false},paneGround[2]{true,true},showAxes=true;
+    bool paneColumns[2]{false,false},paneGround[2]{true,true},showAxes=true,photoMode=false;
     static bool visibleLayer(int mode,int layer) {return (mode==0&&layer==0)||(mode==1&&(layer==1||layer==2))||(mode==2&&layer==1)||(mode==3&&layer==2)||(mode==4&&layer==3);}
 
     bool highlightFill = true, selectingROI = false, draggingROI = false;
@@ -251,7 +253,7 @@ class Viewer : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
                 }
             }
             if(paneColumns[i] && cloud) {
-                p.setPen(QColor(255,70,220));p.drawText(left+12,44,cloud->columns.finalized?"Final column model; colors=groups, magenta=measurement evidence":"Column evidence overlay (magenta); pending=yellow, confirmed=green, rejected=gray");
+                if(!photoMode) {p.setPen(QColor(255,70,220));p.drawText(left+12,44,cloud->columns.finalized?"Final column model; colors=groups, magenta=measurement evidence":"Column evidence overlay (magenta); pending=yellow, confirmed=green, rejected=gray");}
                 for(const auto &c:cloud->columns.items) {
                     const auto color=c.state==ColumnState::Confirmed?(cloud->columns.finalized&&!c.group.isEmpty()?QColor::fromHsv(int(qHash(c.group,0)*67u%360),180,255):QColor(40,255,100)):(c.state==ColumnState::Rejected?QColor(150,150,150):QColor(255,230,30));
                     p.setPen(QPen(color,1.5));
@@ -273,8 +275,11 @@ class Viewer : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
             int displayed=0;for(int layer=0;layer<4;++layer) if(visibleLayer(paneModes[i],layer)) displayed+=counts[layer];
             QString title=names[paneModes[i]]+QString(" | 抽樣 %1 點").arg(displayed);
             if(i==0&&hideLeftRoof&&cloud&&cloud->hasRoofPlanes) title+="（隱藏屋頂與構架）";
-            p.fillRect(QRect(left+5,5,paneWidth-10,27), QColor(10,15,20,210));
-            p.setPen(Qt::white);p.drawText(left+12,24,title); p.restore();
+            if(!photoMode) {
+                p.fillRect(QRect(left+5,5,paneWidth-10,27), QColor(10,15,20,210));
+                p.setPen(Qt::white);p.drawText(left+12,24,title);
+            }
+            p.restore();
         }
         if (draggingROI) {
             p.setPen(QPen(Qt::yellow,2,Qt::DashLine)); p.setBrush(QColor(255,255,0,30));
@@ -283,7 +288,7 @@ class Viewer : public QOpenGLWidget, protected QOpenGLFunctions_3_3_Core {
         /** @brief 與 GPU 相同的藍到紅線性色階，超出範圍時使用端點色。
          *         The same linear blue-to-red scale as the GPU; out-of-range values use endpoint colors.
          */
-        if (cloud && colorMode != 0) {
+        if (!photoMode && cloud && colorMode != 0) {
             QRect bar(20,height()-46,240,12);
             QLinearGradient gradient(bar.topLeft(),bar.topRight());
             gradient.setColorAt(0,QColor::fromRgbF(.1,.25,1));
@@ -357,6 +362,11 @@ public:
     void setLeftRoofDepth(float depth) {roofHideDepth=std::clamp(depth,.1f,15.f);update();}
     void setLeftRoofHidden(bool hidden) {hideLeftRoof=hidden;update();}
     void setAxesVisible(bool visible) {showAxes=visible;update();}
+    /** @brief 切換拍照模式，只隱藏角落標題、結構說明及色階，不改變資料或相機。
+     *         Toggle photo mode, hiding corner titles, structure captions and color legend without changing data/camera.
+     * @param enabled 是否隱藏角落標示。 / Whether corner annotations are hidden.
+     */
+    void setPhotoMode(bool enabled) {photoMode=enabled;update();}
     /** @brief 放大選取柱體並在左右視窗比較原始結構與語意證據。 / Focus a selected column in synchronized raw/evidence panes. */
     void focusColumn(const ColumnSemantic &c,bool topView=false) {
         const auto b=columnBounds(c);const double bottom=columnBottomZ(c,(b[0]+b[1])*.5,(b[2]+b[3])*.5),top=columnTopZ(c,(b[0]+b[1])*.5,(b[2]+b[3])*.5);
@@ -454,7 +464,7 @@ int main(int argc, char **argv) {
     parser.addOption({"mesh-max-slope", "Maximum mesh surface gradient", "ratio", "3.0"});
     parser.addOption({"no-volume", "Disable stockpile ground/volume analysis"});
     parser.addOption({"ground-plane", "Manual ground z=a*x+b*y+c (meters): a,b,c", "coefficients"});
-    parser.addOption({"ground-constant", "Override fitted ground c in meters; retain fitted a,b (incompatible with --ground-plane)", "meters"});
+    parser.addOption({"ground-distance", "Set signed origin-to-ground normal distance in meters; retain fitted a,b (incompatible with --ground-plane)", "meters"});
     parser.addOption({"ground-tolerance", "Ground vertical inlier tolerance in meters", "meters", "0.15"});
     parser.addOption({"pile-threshold", "Minimum height above ground classified as material", "meters", "0.2"});
     parser.addOption({"pile-min-area", "Minimum connected pile area in square meters", "square-meters", "1.0"});
@@ -533,10 +543,10 @@ int main(int argc, char **argv) {
         for(int i=0;i<3;++i) {bool ok=false;volume.ground[i]=coefficients[i].toDouble(&ok);if(!ok||!std::isfinite(volume.ground[i])) {std::cerr<<"Invalid ground plane\n";return 1;}}
         volume.automaticGround=false;
     }
-    if(parser.isSet("ground-constant")) {
-        bool ok=false;const double c=parser.value("ground-constant").toDouble(&ok);
-        if(!ok||!std::isfinite(c)||!volume.automaticGround) {std::cerr<<"Ground constant requires a finite value and cannot be combined with --ground-plane\n";return 1;}
-        volume.groundConstant=c;
+    if(parser.isSet("ground-distance")) {
+        bool ok=false;const double distance=parser.value("ground-distance").toDouble(&ok);
+        if(!ok||!std::isfinite(distance)||!volume.automaticGround) {std::cerr<<"Ground distance requires a finite value and cannot be combined with --ground-plane\n";return 1;}
+        volume.groundDistance=distance;
     }
     for(auto option:{std::make_pair("ground-tolerance",&volume.groundTolerance),std::make_pair("pile-threshold",&volume.pileThreshold),std::make_pair("pile-min-area",&volume.minimumArea)}) {
         bool ok=false;*option.second=parser.value(option.first).toDouble(&ok);
@@ -628,7 +638,7 @@ int main(int argc, char **argv) {
                 else {
                     std::cout<<"Ground z = "<<v.ground[0]<<"*x + "<<v.ground[1]<<"*y + "<<v.ground[2]<<" | "<<(v.manualGround?"manual":"estimated")
                         <<" | measured inliers "<<v.groundInliers<<"/"<<v.groundSamples;
-                    if(v.manualGround) std::cout<<" | RMSE N/A (manual)\n";else std::cout<<" | original fit RMSE "<<v.groundRMSE<<" m | fitted c "<<v.fittedGround[2]<<" | c overridden "<<(v.adjustedGroundConstant?"yes":"no")<<"\n";
+                    if(v.manualGround) std::cout<<" | RMSE N/A (manual)\n";else std::cout<<" | original fit RMSE "<<v.groundRMSE<<" m | fitted c "<<v.fittedGround[2]<<" | normal distance adjusted "<<(v.adjustedGroundDistance?"yes":"no")<<"\n";
                     std::cout<<"Volume raster: 0.10 x 0.10 m (minimum height) | covered "<<v.coveredCells<<"/"<<v.footprintCells<<" | unknown area "<<v.unknownCells*.01
                         <<" m2 | below-ground area "<<v.belowGroundCells*.01<<" m2 | piles "<<v.piles.size()<<" | supported volume "<<v.totalVolume<<" m3 | column intersection excluded "<<v.columnExcludedVolume<<" m3\n";
                     for(const auto &pile:v.piles) std::cout<<"  Pile "<<pile.id<<" | area "<<pile.area<<" m2 | mean height "<<pile.meanHeight<<" m | volume "<<pile.volume
@@ -663,7 +673,9 @@ int main(int argc, char **argv) {
     auto *exportPly=new QPushButton("匯出處理後 PLY");exportPly->setEnabled(false);
     exportPly->setToolTip("匯出完整處理後實測與補點；與左右顯示選擇無關");
     auto *exportMesh=new QPushButton("匯出料面 Mesh");exportMesh->setEnabled(false);exportMesh->setToolTip("匯出實驗性 TIN 的開放上表面供檢查；柱體以解析交集另扣，非封閉實體");
-    fileRow->addWidget(exportMesh);fileRow->addWidget(new QLabel("點雲檔案"));fileRow->addWidget(select,1);fileRow->addWidget(exportPly);layout->addLayout(fileRow);
+    auto *photoMode=new QCheckBox("拍照模式");photoMode->setToolTip("隱藏兩側左上角文字與左下角色階／高程標示；保留目前視角及其他疊圖");
+    auto *capture=new QPushButton("擷取畫面");capture->setEnabled(false);capture->setToolTip("將目前左右並列的視覺化區域存成單張 PNG，依目前拍照模式與疊圖設定擷取");
+    fileRow->addWidget(exportMesh);fileRow->addWidget(new QLabel("點雲檔案"));fileRow->addWidget(select,1);fileRow->addWidget(exportPly);fileRow->addWidget(photoMode);fileRow->addWidget(capture);layout->addLayout(fileRow);
     auto *displayRow=new QHBoxLayout;
     QComboBox *paneMode[2];QCheckBox *paneColumns[2],*paneGround[2];
     for(int pane=0;pane<2;++pane) {
@@ -683,19 +695,36 @@ int main(int argc, char **argv) {
     auto *autoRange=new QPushButton("自動色階 P5–P95");auto *highlight=new QCheckBox("補點標橘色");highlight->setChecked(true);
     auto *axes=new QCheckBox("座標原點與軸");axes->setChecked(true);
     colorRow->addWidget(new QLabel("共用著色"));colorRow->addWidget(colorSelect);colorRow->addWidget(new QLabel("下限"));colorRow->addWidget(minimum);colorRow->addWidget(new QLabel("上限"));colorRow->addWidget(maximum);colorRow->addWidget(autoRange);colorRow->addWidget(highlight);colorRow->addWidget(axes);colorRow->addStretch();layout->addLayout(colorRow);
-    auto *groundRow=new QHBoxLayout;auto *adjustGround=new QCheckBox("調整地面常數 c");
-    auto *groundConstant=new QDoubleSpinBox;groundConstant->setRange(-1e6,1e6);groundConstant->setDecimals(6);groundConstant->setSingleStep(.01);groundConstant->setSuffix(" m");groundConstant->setKeyboardTracking(false);
-    adjustGround->setChecked(volume.groundConstant.has_value());groundConstant->setValue(volume.groundConstant.value_or(0));
+    auto *groundRow=new QHBoxLayout;auto *adjustGround=new QCheckBox("調整原點到地面距離 d");
+    auto *groundDistance=new QDoubleSpinBox;groundDistance->setRange(-1e6,1e6);groundDistance->setDecimals(6);groundDistance->setSingleStep(.01);groundDistance->setSuffix(" m");groundDistance->setKeyboardTracking(false);
+    adjustGround->setChecked(volume.groundDistance.has_value());groundDistance->setValue(volume.groundDistance.value_or(0));
     auto *applyGround=new QPushButton("套用地面並重新計算");
-    groundConstant->setToolTip("Z = aX + bY + c；a、b 固定使用實測擬合值，此欄輸入絕對常數 c，非高度偏移量");
-    groundRow->addWidget(adjustGround);groundRow->addWidget(groundConstant);groundRow->addWidget(applyGround);groundRow->addStretch();layout->addLayout(groundRow);
-    adjustGround->setEnabled(false);groundConstant->setEnabled(false);applyGround->setEnabled(false);
+    groundDistance->setToolTip("輸入原點到地面的最短距離 d（沿法線，帶正負號，公尺）；保留擬合 a、b，以 c = d√(1+a²+b²) 設定平面；d < 0 在原點下方、d > 0 在上方");
+    groundRow->addWidget(adjustGround);groundRow->addWidget(groundDistance);groundRow->addWidget(applyGround);groundRow->addStretch();layout->addLayout(groundRow);
+    adjustGround->setEnabled(false);groundDistance->setEnabled(false);applyGround->setEnabled(false);
     auto *viewer=new Viewer;viewer->setToolTip("左鍵旋轉；右鍵或 Shift 拖曳平移；滾輪縮放；雙擊重新取景。左右視角同步。");layout->addWidget(viewer,1);
     auto *status=new QLabel;status->setWordWrap(true);layout->addWidget(status);
     auto *volumeSummary=new QLabel;volumeSummary->setWordWrap(true);volumeSummary->setTextInteractionFlags(Qt::TextSelectableByMouse);layout->addWidget(volumeSummary);
     auto *volumeTable=new QTableWidget(0,6);volumeTable->setHorizontalHeaderLabels({"柵格料堆","淨體積 m³","投影面積 m²","實測支撐 m³","補點支撐 m³","內部缺測 m²"});
     volumeTable->setEditTriggers(QAbstractItemView::NoEditTriggers);volumeTable->horizontalHeader()->setSectionResizeMode(QHeaderView::Stretch);volumeTable->setMaximumHeight(145);layout->addWidget(volumeTable);
     std::shared_ptr<Cloud> activeCloud;QFutureWatcher<std::shared_ptr<Cloud>> watcher;
+    QObject::connect(photoMode,&QCheckBox::toggled,viewer,[viewer](bool on){viewer->setPhotoMode(on);});
+    QObject::connect(capture,&QPushButton::clicked,&window,[&] {
+        if(watcher.isRunning()||!activeCloud) return;
+        if(!viewer->graphicsReady()) {status->setText("擷取失敗：OpenGL 尚未就緒。");return;}
+        const QImage frame=viewer->grabFramebuffer();
+        if(frame.isNull()) {status->setText("擷取失敗：無法讀取視覺化畫面。");return;}
+        QFileDialog dialog(&window,"儲存左右視窗畫面",dir.absolutePath(),"PNG image (*.png)");
+        dialog.setAcceptMode(QFileDialog::AcceptSave);dialog.setDefaultSuffix("png");
+        dialog.selectFile(QFileInfo(select->currentText()).completeBaseName()+"_comparison.png");
+        if(dialog.exec()!=QDialog::Accepted||dialog.selectedFiles().isEmpty()) return;
+        const QString path=dialog.selectedFiles().front();
+        // 對話框補上預設副檔名，並在覆寫前交由 Qt 確認；原子寫入避免留下半張影像。
+        // The dialog supplies the default suffix and confirms overwrites; atomic saving avoids partial images.
+        QSaveFile output(path);
+        if(!output.open(QIODevice::WriteOnly)||!frame.save(&output,"PNG")||!output.commit()) {status->setText("儲存畫面失敗："+path+"（"+output.errorString()+"）");return;}
+        status->setText("已儲存畫面："+path);
+    });
     QObject::connect(hideRoof,&QCheckBox::toggled,viewer,[viewer,hideRoof,roofDepth](bool on){viewer->setLeftRoofHidden(on);roofDepth->setEnabled(on&&hideRoof->isEnabled());});
     QObject::connect(roofDepth,QOverload<double>::of(&QDoubleSpinBox::valueChanged),viewer,[viewer](double depth){viewer->setLeftRoofDepth(float(depth));});
     auto applyDisplay=[&] {for(int pane=0;pane<2;++pane) viewer->setPaneDisplay(pane,paneMode[pane]->currentIndex(),paneColumns[pane]->isChecked(),paneGround[pane]->isChecked());};
@@ -714,18 +743,19 @@ int main(int argc, char **argv) {
      */
     auto load=[&](const QString &destination=QString()) {
         if(watcher.isRunning()) return;
-        adjustGround->setEnabled(false);groundConstant->setEnabled(false);applyGround->setEnabled(false);
+        capture->setEnabled(false);
+        adjustGround->setEnabled(false);groundDistance->setEnabled(false);applyGround->setEnabled(false);
         select->setEnabled(false);exportMesh->setEnabled(false);exportPly->setEnabled(false);volumeSummary->clear();volumeTable->setRowCount(0);status->setText(destination.isEmpty()?"正在處理點雲與計算體積…":"正在匯出完整處理後點雲…");
         const QString path=dir.filePath(select->currentText());const bool calibrated=!parser.isSet("raw-coordinates");
         watcher.setFuture(QtConcurrent::run([path,limit,noise,fill,calibrated,structures,volume,destination]{return std::make_shared<Cloud>(processCloud(path,limit,noise,fill,calibrated,structures,volume,destination));}));
     };
     QObject::connect(&watcher,&QFutureWatcher<std::shared_ptr<Cloud>>::finished,&window,[&] {
-        auto c=watcher.result();select->setEnabled(true);
+        auto c=watcher.result();select->setEnabled(true);capture->setEnabled(c->error.isEmpty());
         if(!c->error.isEmpty()) {activeCloud.reset();exportMesh->setEnabled(false);hideRoof->setEnabled(false);roofDepth->setEnabled(false);viewer->clearCloud();exportPly->setEnabled(false);volumeTable->setRowCount(0);volumeTable->hide();volumeSummary->clear();status->setText("處理失敗："+c->error);if(parser.isSet("smoke-test")) app->exit(2);return;}
         activeCloud=c;exportMesh->setEnabled(c->meshVolume.enabled&&c->meshVolume.error.isEmpty()&&!c->meshVolume.surface.empty());hideRoof->setEnabled(c->hasRoofPlanes);roofDepth->setEnabled(c->hasRoofPlanes&&hideRoof->isChecked());exportPly->setEnabled(true);viewer->setCloud(c,axis);resetRange();applyDisplay();
         const bool canAdjust=volume.automaticGround&&c->volume.groundValid&&c->volume.error.isEmpty();
-        adjustGround->setEnabled(canAdjust);groundConstant->setEnabled(canAdjust&&adjustGround->isChecked());applyGround->setEnabled(canAdjust);
-        if(canAdjust&&!volume.groundConstant) groundConstant->setValue(c->volume.fittedGround[2]);
+        adjustGround->setEnabled(canAdjust);groundDistance->setEnabled(canAdjust&&adjustGround->isChecked());applyGround->setEnabled(canAdjust);
+        if(canAdjust&&!volume.groundDistance) groundDistance->setValue(c->volume.fittedGround[2]/std::hypot(1.,std::hypot(c->volume.fittedGround[0],c->volume.fittedGround[1])));
         if(!c->exportError.isEmpty()) status->setText("匯出失敗："+c->exportError);else status->setText(c->exportedPath.isEmpty()?QString():"已匯出："+c->exportedPath);
         const auto &v=c->volume;volumeTable->setRowCount(0);volumeTable->setVisible(v.enabled&&v.error.isEmpty());
         if(!v.enabled) volumeSummary->setText("體積計算未啟用。");
@@ -734,7 +764,7 @@ int main(int argc, char **argv) {
             QString text=QString("柵格淨體積 %1 m³　｜　%2 個料堆　｜　柱體扣除 %3 m³\n10 × 10 cm 柵格・最低離地高度　｜　資料覆蓋 %4%　｜　場內缺測 %5 m²（未計入體積）")
                 .arg(v.totalVolume,0,'f',1).arg(qulonglong(v.piles.size())).arg(v.columnExcludedVolume,0,'f',1).arg(v.footprintCells?100.*v.coveredCells/v.footprintCells:0,0,'f',1).arg(v.unknownCells*.01,0,'f',1);
             text+=QString("\n地面 z = %1x + %2y + %3　｜　%4").arg(v.ground[0],0,'f',6).arg(v.ground[1],0,'f',6).arg(v.ground[2],0,'f',3).arg(v.manualGround?"手動地面":QString("自動地面 RMSE %1 m").arg(v.groundRMSE,0,'f',3));
-            if(v.adjustedGroundConstant) text+=QString("　｜　c 已調整（原擬合 c = %1 m；RMSE 為原擬合值）").arg(v.fittedGround[2],0,'f',6);
+            if(v.adjustedGroundDistance) text+=QString("　｜　原點至地面法線距離 %1 m（原擬合 c = %2 m；RMSE 為原擬合值）").arg(v.ground[2]/std::hypot(1.,std::hypot(v.ground[0],v.ground[1])),0,'f',6).arg(v.fittedGround[2],0,'f',6);
             if(c->surfaceFilter.comparisonValid) text+=QString("　｜　末段過濾體積差 %1 m³（同地面）").arg(c->surfaceFilter.volumeAfter-c->surfaceFilter.volumeBefore,0,'f',1);
             if(c->meshVolume.enabled) {
                 const auto &m=c->meshVolume;
@@ -750,10 +780,10 @@ int main(int argc, char **argv) {
             std::cout<<"Compact pane selections: "<<(ok?"PASS":"FAIL")<<std::endl;app->exit(ok?0:2);
         });
     });
-    QObject::connect(adjustGround,&QCheckBox::toggled,&window,[&](bool on){groundConstant->setEnabled(on&&adjustGround->isEnabled());});
+    QObject::connect(adjustGround,&QCheckBox::toggled,&window,[&](bool on){groundDistance->setEnabled(on&&adjustGround->isEnabled());});
     QObject::connect(applyGround,&QPushButton::clicked,&window,[&] {
         if(watcher.isRunning()) return;
-        volume.groundConstant=adjustGround->isChecked()?std::optional<double>(groundConstant->value()):std::nullopt;load();
+        volume.groundDistance=adjustGround->isChecked()?std::optional<double>(groundDistance->value()):std::nullopt;load();
     });
     QObject::connect(select,QOverload<int>::of(&QComboBox::currentIndexChanged),&window,[&](int){load();});
     QObject::connect(exportMesh,&QPushButton::clicked,&window,[&] {

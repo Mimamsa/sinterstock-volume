@@ -5,7 +5,7 @@
 | 文件 | 內容 |
 |---|---|
 | [處理流程](processing_pipeline.md) | 單份 PLY 至淨體積、地面與倒凸邊界 |
-| [介面操作](compact_interface.md) | 左右視圖、著色、隱藏屋頂、地面常數調整與匯出 |
+| [介面操作](compact_interface.md) | 左右視圖、著色、隱藏屋頂、地面法線距離調整、拍照模式、畫面擷取與匯出 |
 | [結構模型](columns_final.md) | 生效檔、目前分群、ID 與檢查方式 |
 | [梁柱尺寸](structural_beams.md) | S1–S9、S5_BOX 的現行尺寸與檢查圖 |
 | [結構聯集扣除](structural_union_volume.md) | 只扣埋入料堆部分，重疊只扣一次 |

@@ -18,7 +18,7 @@ struct VolumeOptions {
     bool enabled=false; ///< API 預設停用，應用程式預設啟用。 / Disabled in the API, enabled in the application.
     bool automaticGround=true; ///< 只由量測估計地面，不使用補點。 / Estimate ground from measurements only, never estimates.
     std::array<double,3> ground{0,0,0}; ///< 手動地面 z=a*x+b*y+c。 / Manual ground z=a*x+b*y+c.
-    std::optional<double> groundConstant; ///< 自動擬合後只覆寫 c（m），保留 a、b；手動平面不可併用。 / Override only fitted c (m), retaining a,b; incompatible with a manual plane.
+    std::optional<double> groundDistance; ///< 原點至地面法線距離 d（m，帶正負號）；保留擬合 a、b，依 d 正負號決定地面位於原點上方或下方。 / Signed origin-to-ground normal distance d (m); retain fitted a,b and use the sign of d to place ground above/below origin.
     double groundTolerance=.15; ///< 地面內點垂直容差。 / Vertical ground inlier tolerance.
     double pileThreshold=.2; ///< 高於地面此高度才列入料堆。 / Minimum above-ground height classified as material.
     std::vector<ColumnSemantic> columns{}; ///< 只扣除確認截面內與料柱相交的實心柱體。 / Deduct only confirmed solid intersections.
@@ -39,7 +39,7 @@ struct VolumeReport {
     bool enabled=false, groundValid=false, manualGround=false;
     std::array<double,3> ground{0,0,0};
     std::array<double,3> fittedGround{0,0,0}; ///< 原始擬合平面；RMSE 與內點統計屬於此平面。 / Original fit underlying RMSE and inlier statistics.
-    bool adjustedGroundConstant=false;
+    bool adjustedGroundDistance=false;
     double groundRMSE=0,groundSpanX=0,groundSpanY=0;
     size_t groundSamples=0,groundInliers=0;
     static constexpr double spacing=.1; ///< 體積網格固定 10 cm，獨立於補點與顯示格距。 / Fixed 10 cm volume grid, independent of fill/display spacing.
@@ -59,8 +59,8 @@ struct VolumeReport {
  * @param estimated 補點只支撐沒有量測的格子，不與量測重複加總。 / Estimates support only cells lacking measurements, avoiding double counting.
  * @param footprint 明確場域凹多邊形，不接受空邊界。 / Explicit concave site footprint; empty is rejected.
  * @param margin 真實邊界內縮距離。 / Perimeter setback.
- * @param options 地面及分割設定；groundConstant 在自動擬合驗證後只替換 c（m），保留 a、b。
- *                Ground/segmentation settings; groundConstant replaces only c (m) after automatic fit validation, retaining a,b.
+ * @param options 地面及分割設定；groundDistance 在擬合驗證後，以 c = d*sqrt(1+a²+b²) 保留坡度並依 d 正負號設定地面。
+ *                Ground/segmentation settings; groundDistance sets c=d*sqrt(1+a²+b²) after fit validation, preserving slopes and the sign of d.
  * @return 每格 V=0.01*min(z-ground(x,y)) 的累加與每堆報告；失敗不影響點雲顯示。
  *         Sum V=0.01*min(z-ground(x,y)) per cell and report per pile; errors do not prevent point rendering.
  * @warning 接觸且連通的料堆視為同一堆，地面被完全遮住時須提供手動地平面。

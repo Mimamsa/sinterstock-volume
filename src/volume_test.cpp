@@ -51,21 +51,29 @@ int main() {
         require(autoReport.error.isEmpty()&&autoReport.groundInliers>=30,"Automatic ground failed");
         require(std::abs(autoReport.ground[0]-.02)<1e-5&&std::abs(autoReport.ground[1]+.01)<1e-5&&std::abs(autoReport.ground[2]+5)<1e-4,"Sloped ground fit inaccurate");
         require(std::abs(autoReport.totalVolume-8)<1e-4,"Ground-relative automatic volume failed");
-        // 只改絕對常數，坡度與原擬合統計不變；料堆高度減少 0.5 m。
-        // Absolute c override preserves slopes/fit diagnostics and reduces pile heights by 0.5 m.
-        automatic.groundConstant=autoReport.ground[2]+.5;
+        // 以法線距離設定地面，坡度與原擬合統計不變；料堆高度減少 0.5 m。
+        // Normal-distance adjustment preserves slopes/fit diagnostics and reduces pile heights by 0.5 m.
+        const double normalLength=std::sqrt(1+autoReport.ground[0]*autoReport.ground[0]+autoReport.ground[1]*autoReport.ground[1]);
+        automatic.groundDistance=(autoReport.ground[2]+.5)/normalLength;
         const Footprint terrainRegion{{0,0},{10,0},{10,10},{0,10}};
         const auto adjusted=calculateStockpileVolumes(terrain,{{2,2,-100}},terrainRegion,0,automatic);
-        require(adjusted.error.isEmpty()&&adjusted.adjustedGroundConstant&&!adjusted.manualGround,"Constant override failed");
-        require(adjusted.ground[0]==autoReport.ground[0]&&adjusted.ground[1]==autoReport.ground[1]&&adjusted.ground[2]==*automatic.groundConstant,"Override changed fitted slopes");
+        require(adjusted.error.isEmpty()&&adjusted.adjustedGroundDistance&&!adjusted.manualGround,"Constant override failed");
+        require(adjusted.ground[0]==autoReport.ground[0]&&adjusted.ground[1]==autoReport.ground[1],"Distance adjustment changed fitted slopes");
+        require(std::abs(adjusted.ground[2]/normalLength-*automatic.groundDistance)<1e-12&&adjusted.ground[2]<0,"Normal distance conversion failed");
         require(adjusted.fittedGround==autoReport.ground&&adjusted.groundRMSE==autoReport.groundRMSE,"Original fit diagnostics lost");
         require(std::abs(adjusted.totalVolume-6)<1e-4,"Adjusted ground not used in volume");
         auto invalid=automatic;invalid.automaticGround=false;
         require(!calculateStockpileVolumes(terrain,{},terrainRegion,0,invalid).error.isEmpty(),"Conflicting ground options accepted");
-        invalid=automatic;invalid.groundConstant=std::numeric_limits<double>::infinity();
+        invalid=automatic;invalid.groundDistance=std::numeric_limits<double>::infinity();
         require(!calculateStockpileVolumes(terrain,{},terrainRegion,0,invalid).error.isEmpty(),"Nonfinite constant accepted");
+        invalid=automatic;invalid.groundDistance=1;
+        const auto positive=calculateStockpileVolumes(terrain,{},terrainRegion,0,invalid);
+        require(positive.error.isEmpty()&&std::abs(positive.ground[2]-normalLength)<1e-12,"Positive signed distance conversion failed");
+        invalid=automatic;invalid.groundDistance=0;
+        const auto throughOrigin=calculateStockpileVolumes(terrain,{},terrainRegion,0,invalid);
+        require(throughOrigin.error.isEmpty()&&throughOrigin.ground[2]==0,"Zero distance did not place plane through origin");
         require(!calculateStockpileVolumes({},terrain,terrainRegion,0,automatic).error.isEmpty(),"Override bypassed measured ground support");
-        automatic.groundConstant.reset();
+        automatic.groundDistance.reset();
         const auto concave=calculateStockpileVolumes(measured,estimated,{{0,0},{4,0},{4,1},{3,1},{3,2},{0,2}},0,o);
         require(concave.error.isEmpty()&&std::abs(concave.totalVolume-7)<1e-5,"Concave footprint was filled as a rectangle");
         // 非格線凹角：格中心在場內仍不夠，整格跨到缺角外就不能算。
